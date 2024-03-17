@@ -21,8 +21,7 @@ public class IntegrationConfig {
 
     @Bean
     public IntegrationFlow feedFlow() throws MalformedURLException {
-        return IntegrationFlow.from(Feed.inboundAdapter(
-                new URL("https://lenta.ru/rss"), "news"),
+        return IntegrationFlow.from(Feed.inboundAdapter( new URL("https://lenta.ru/rss"), "news"),
                 e -> e.poller(p -> p.fixedDelay(5000)))
                 .transform(extractLinkFromRSS())
                 .handle(messageHandler())
